@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dmint-mcp"
+version = "0.1.0"
+description = "MCP proxy server and tool enforcement gateway for Dmint"
+requires-python = ">=3.10"
+readme = "README.md"
+dependencies = [
+    "dmint>=0.1.0,<0.2.0",
+    "mcp>=2.2.0",
+    "anyio>=4.9",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
