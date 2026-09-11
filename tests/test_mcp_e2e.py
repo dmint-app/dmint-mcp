@@ -14,21 +14,15 @@ from dmint.storage import SQLiteApprovalStore
 BASE = Path(__file__).parent
 MOCK_SERVER_SCRIPT = str(BASE / "mock_server.py")
 PROXY_ENTRYPOINT = str(BASE / "proxy_entrypoint.py")
-DMINT_SRC = str(Path(__file__).resolve().parents[2] / "src")
-DMINT_CORE_SRC = str(Path(__file__).resolve().parents[3] / "dmint" / "src")
 
 
 def stdio_server_params(env_override=None):
-    current_pythonpath = os.environ.get("PYTHONPATH", "")
-    pythonpath = f"{DMINT_SRC}:{DMINT_CORE_SRC}:{current_pythonpath}".strip(":")
-    env = {
-        **os.environ,
-        "PYTHONPATH": pythonpath,
-        "DMINT_SRC": DMINT_SRC,
+    env = dict(os.environ)
+    env.update({
         "DMINT_INTEGRATION_ID": "e2e-server",
         "DMINT_DOWNSTREAM_COMMAND": sys.executable,
         "DMINT_DOWNSTREAM_ARGS": MOCK_SERVER_SCRIPT,
-    }
+    })
     if env_override:
         env.update(env_override)
     return StdioServerParameters(
