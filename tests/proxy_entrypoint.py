@@ -1,17 +1,18 @@
 """Subprocess entrypoint that runs a DmintMCPProxy as an agent-facing MCP server."""
 
-import asyncio
-import os
-import sys
-
-sys.path.insert(0, os.environ.get("DMINT_SRC", "src"))
-
 from datetime import datetime, timedelta, timezone
 import asyncio
 import os
+from pathlib import Path
 import sys
 
-sys.path.insert(0, os.environ.get("DMINT_SRC", "src"))
+_THIS_DIR = Path(__file__).resolve().parent
+_MCP_SRC = str(_THIS_DIR.parent / "src")
+_CORE_SRC = str(_THIS_DIR.parents[1] / "dmint" / "src")
+
+for p in (_MCP_SRC, _CORE_SRC, os.environ.get("DMINT_SRC")):
+    if p and p not in sys.path:
+        sys.path.insert(0, p)
 
 from dmint.approvals import PolicyProvenance
 from dmint_mcp import DmintMCPProxy, DiscoveryMode, MCPIntegrationConfig, MCPToolBinding
