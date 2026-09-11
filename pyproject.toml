@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "dmint-mcp"
 version = "0.1.0"
 description = "MCP proxy server and tool enforcement gateway for Dmint"
+license = "Apache-2.0"
 requires-python = ">=3.10"
 readme = "README.md"
 dependencies = [
